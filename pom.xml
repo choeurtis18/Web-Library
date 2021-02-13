@@ -50,7 +50,13 @@
       <artifactId>java-uuid-generator</artifactId>
       <version>4.0.1</version>
     </dependency>
-
+    <dependency>
+      <groupId>mediatek2021</groupId>
+      <artifactId>mediatek</artifactId>
+      <scope>system</scope>
+      <version>1.0.0</version>
+      <systemPath>${basedir}\src\main\webapp/WEB-INF/lib/mediatek.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
