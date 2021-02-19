@@ -14,8 +14,8 @@
 <body>
 <form action="/login" method="post">
     <p style="{color: red}"><j:out value="${requestScope.error}"></j:out></p>
-    <input type="text" name="login" placeholder="ENTER YOUR LOGIN">
-    <input type="password" name="password" placeholder="ENTER YOUR PASSWORD">
+    <input type="email" name="login" required placeholder="ENTER YOUR LOGIN">
+    <input type="password" name="password" required  minlength="8" placeholder="ENTER YOUR PASSWORD">
     <button type="submit">Login</button>
 </form>
 </body>

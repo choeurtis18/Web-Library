@@ -39,6 +39,11 @@ public class LoginServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }
 
+        if(!login.matches("^(.+)@(.+)$") || !password.matches(" [a-zA-Z0-9]{8,}")){
+            request.setAttribute("error", "Please enter valid credentials");
+            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
+        }
+
         Utilisateur u = Mediatek.getInstance().getUser(login, password);
 
         // check if the user is a librarian
@@ -49,6 +54,5 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", u);
 
         response.sendRedirect("/");
-//        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }
