@@ -1,5 +1,7 @@
 package aguiardaniel.fr.persistance;
 
+import aguiardaniel.fr.persistance.dao.DocumentDAO;
+import aguiardaniel.fr.persistance.dao.UserDAO;
 import mediatek2021.*;
 
 import java.util.List;
@@ -11,24 +13,30 @@ import java.util.List;
 public class MediatekData implements PersistentMediatek {
 // Jean-François Brette 01/01/2018
 
+	private UserDAO userDAO;
+	private DocumentDAO documentDAO;
+
 	static {
 		// injection dynamique de la dépendance dans le package stable mediatek2021
 		Mediatek.getInstance().setData(new MediatekData());
 	}
 
-	private MediatekData(){ }
+	private MediatekData(){
+		userDAO = new UserDAO();
+		documentDAO = new DocumentDAO();
+	}
 
 	// renvoie la liste de tous les documents de la bibliothèque
 	@Override
 	public List<Document> catalogue(int type) {
-		return null;
+		return documentDAO.getAll();
 	}
 
 	// va récupérer le User dans la BD et le renvoie
 	// si pas trouvé, renvoie null
 	@Override
 	public Utilisateur getUser(String login, String password) {
-		return null;
+		return userDAO.getByLogin(login, password);
 	}
 
 	// va récupérer le document de numéro numDocument dans la BD
@@ -54,3 +62,4 @@ public class MediatekData implements PersistentMediatek {
 	}
 
 }
+
