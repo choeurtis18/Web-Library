@@ -44,7 +44,7 @@ public class MediatekData implements PersistentMediatek {
 	// si pas trouvé, renvoie null
 	@Override
 	public Document getDocument(int numDocument) {
-		return null;
+		return documentDAO.get(numDocument);
 	}
 
 	// ajoute un nouveau document - exception à définir

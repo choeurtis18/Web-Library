@@ -1,14 +1,7 @@
 package aguiardaniel.fr.persistance.dao;
 
-import aguiardaniel.fr.persistance.entity.document.Book;
-import aguiardaniel.fr.persistance.entity.document.CD;
-import aguiardaniel.fr.persistance.entity.document.DVD;
-import aguiardaniel.fr.persistance.entity.document.DocumentState;
-import aguiardaniel.fr.persistance.entity.state.Borrowed;
-import aguiardaniel.fr.persistance.entity.state.Free;
-import aguiardaniel.fr.persistance.entity.user.Librarian;
-import aguiardaniel.fr.persistance.entity.user.Subscriber;
-import aguiardaniel.fr.persistance.entity.user.User;
+import aguiardaniel.fr.persistance.entity.document.*;
+
 import mediatek2021.Document;
 
 import java.sql.*;
@@ -28,11 +21,10 @@ public class DocumentDAO extends DAO<Document> {
     @Override
     public List<Document> getAll() {
         String query = "SELECT * FROM document";
-        List<Document> documentslist = new ArrayList<>();
-        Document doc = null;
+        List<Document> documents = new ArrayList<>();
+        Document doc;
 
-        try (Statement stmt = super.getConnection().createStatement()) {
-
+        try(Statement stmt = super.getConnection().createStatement()) {
             ResultSet set = stmt.executeQuery(query);
 
             while (set.next()) {
@@ -42,57 +34,72 @@ public class DocumentDAO extends DAO<Document> {
                 String type = set.getString("type");
                 String borrowID = set.getString("borrowID");
 
-                if(set.getString("type").equals("dvd")){
-                    String queryDVD = "SELECT * FROM DVD WHERE documentID = ?";
-                    PreparedStatement stmtDVD = super.getConnection().prepareStatement(queryDVD);
-                    stmtDVD.setInt(1, documentID);
+                ResultSet docSet = getDocumentById(documentID, type);
+                if(docSet == null || !docSet.next())
+                    return null;
 
-                    ResultSet setDVD = stmtDVD.executeQuery();
+                doc = DocumentFactory.newDocument(title, DocType.getTypeFromString(type), state.equals("free"));
 
-                    if(setDVD.next()){
-                        doc = new DVD(title, state.equals("free")? new Free() : new Borrowed());
-                    }
-                }
-                else if(set.getString("type").equals("book")){
-                    String queryBook = "SELECT * FROM book WHERE documentID = ?";
-                    PreparedStatement stmtBook = super.getConnection().prepareStatement(queryBook);
-                    stmtBook.setInt(1, documentID);
-
-                    ResultSet setBook = stmtBook.executeQuery();
-
-                    if(setBook.next()){
-                        doc = new Book(title, state.equals("free")? new Free() : new Borrowed());
-                    }
-                }
-                else if(set.getString("type").equals("cd")){
-                    String queryCD = "SELECT * FROM cd WHERE documentID = ?";
-                    PreparedStatement stmtCD = super.getConnection().prepareStatement(queryCD);
-                    stmtCD.setInt(1, documentID);
-
-                    ResultSet setCD = stmtCD.executeQuery();
-
-                    if(setCD.next()){
-                        doc = new CD(title, state.equals("free")? new Free() : new Borrowed());
-                    }
-                }
-
-                documentslist.add(doc);
+                documents.add(doc);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            System.out.println("1");
         }
 
-
-        return documentslist;
+        return documents;
     }
 
     @Override
     public Document get(int id) {
-        return null;
+        String queryDoc = "SELECT * FROM Document WHERE documentID = ?";
+        try (PreparedStatement preparedStatement = super.getConnection().prepareStatement(queryDoc)) {
+            preparedStatement.setInt(1, id);
+            ResultSet set = preparedStatement.executeQuery();
+
+            if (!set.next())
+                return null;
+
+            int documentID = set.getInt("documentID");
+            String title = set.getString("title");
+            String state = set.getString("state");
+            String type = set.getString("type");
+            String borrowID = set.getString("borrowID");
+
+            ResultSet docSet = getDocumentById(documentID, type.toUpperCase());
+
+            if (docSet == null || !docSet.next())
+                return null;
+
+            return DocumentFactory.newDocument(title, DocType.getTypeFromString(type), state.equals("free"));
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public void delete(int id) {
+        String deleteQuery = "DELETE FROM Document WHERE documentID = ?";
 
+        try(PreparedStatement preparedStatement = super.getConnection().prepareStatement(deleteQuery)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        }catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    private ResultSet getDocumentById(int documentID, String table){
+        String queryDoc = "SELECT * FROM " + table.toUpperCase() + " WHERE documentID = ?";
+        try {
+            PreparedStatement preparedStatement = super.getConnection().prepareStatement(queryDoc);
+            preparedStatement.setInt(1, documentID);
+            return preparedStatement.executeQuery();
+        }catch (SQLException throwable){
+            throwable.printStackTrace();
+            return null;
+        }
     }
 }

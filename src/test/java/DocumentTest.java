@@ -15,9 +15,9 @@ public class DocumentTest {
 
     @BeforeAll
     public static void init() {
-        cd = DocumentFactory.newDocument("Beally Jean - Mickael Jackson", DocType.CD);
-        dvd = DocumentFactory.newDocument("Fast and Furious 8", DocType.DVD);
-        book = DocumentFactory.newDocument("The Java Programming", DocType.BOOK);
+        cd = DocumentFactory.newDocument("Beally Jean - Mickael Jackson", DocType.CD, true);
+        dvd = DocumentFactory.newDocument("Fast and Furious 8", DocType.DVD, true);
+        book = DocumentFactory.newDocument("The Java Programming", DocType.BOOK, true);
     }
 
     public static void cdTest() {
