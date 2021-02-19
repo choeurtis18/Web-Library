@@ -17,16 +17,15 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Object user = session.getAttribute("user");
+
+        if(user == null)
+            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
+
         List<Document> documentList = Mediatek.getInstance().catalogue(1);
         request.setAttribute("documents", documentList);
-
-        System.out.println(documentList);
-        //this.getServletContext().getRequestDispatcher("/catalog/catalog.jsp");
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.getServletContext().getRequestDispatcher("/catalog/catalog.jsp").forward(request, response);
 
     }
 }

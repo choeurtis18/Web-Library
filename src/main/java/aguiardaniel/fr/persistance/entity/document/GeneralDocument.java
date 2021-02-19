@@ -25,6 +25,6 @@ public abstract class GeneralDocument implements Document {
 
     @Override
     public Object[] data() {
-        return new Object[]{number, title, state};
+        return new Object[]{number, title, state, state.getClass().getSimpleName()};
     }
 }

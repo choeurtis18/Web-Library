@@ -53,6 +53,6 @@ public class LoginServlet extends HttpServlet {
         }
         session.setAttribute("user", u);
 
-        response.sendRedirect("/");
+        response.sendRedirect("/documents");
     }
 }
