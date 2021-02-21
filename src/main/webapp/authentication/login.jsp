@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Login page</title>
+    <%@include file="../utils/include.jsp"%>
 </head>
 <body>
 <form action="/login" method="post">

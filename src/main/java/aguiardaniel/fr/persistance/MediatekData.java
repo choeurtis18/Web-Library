@@ -2,10 +2,13 @@ package aguiardaniel.fr.persistance;
 
 import aguiardaniel.fr.persistance.dao.DocumentDAO;
 import aguiardaniel.fr.persistance.dao.UserDAO;
+import aguiardaniel.fr.persistance.entity.document.DocType;
+import aguiardaniel.fr.persistance.entity.document.DocumentFactory;
+
 import mediatek2021.*;
 
+import java.util.Arrays;
 import java.util.List;
-
 
 // classe mono-instance : l'unique instance est connue de la bibliotheque
 // via une injection de dépendance dans son bloc static
@@ -50,6 +53,17 @@ public class MediatekData implements PersistentMediatek {
 	// ajoute un nouveau document - exception à définir
 	@Override
 	public void newDocument(int type, Object... args) throws NewDocException {
+		DocType docType = DocType.getTypeById(type);
+
+		if(docType == null)
+			throw new NewDocException("This type doesn't exist");
+
+		List<Object> normalizedArgs = Arrays.asList(args);
+		normalizedArgs.remove(0);
+
+		Document doc = DocumentFactory.newDocument(args[0].toString(), docType, true, normalizedArgs);
+
+		documentDAO.insert(doc);
 		// args[0] -> le titre
 		// args [1] --> l'auteur
 		// etc en fonction du type et des infos optionnelles

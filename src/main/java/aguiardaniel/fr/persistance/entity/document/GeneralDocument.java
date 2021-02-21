@@ -27,4 +27,13 @@ public abstract class GeneralDocument implements Document {
     public Object[] data() {
         return new Object[]{number, title, state, state.getClass().getSimpleName()};
     }
+
+    @Override
+    public String toString() {
+        return "GeneralDocument{" +
+                "number=" + number +
+                ", title='" + title + '\'' +
+                ", state=" + state +
+                '}';
+    }
 }

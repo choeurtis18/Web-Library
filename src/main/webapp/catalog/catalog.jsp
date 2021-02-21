@@ -11,17 +11,11 @@
 <html>
 <head>
     <title>Documents</title>
-    <!--Import for boostrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!--Import for dropDown menu -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
+    <%@include file="../utils/include.jsp"%>
 </head>
 <body>
     <header>
-        <button type="submit" class="btn btn-primary">Add new document</button>
+        <button id="new-doc-btn" class="button is-black">New document</button>
     </header>
 
     <div class="card-columns">
@@ -58,9 +52,103 @@
                 </j:forEach>
             </j:otherwise>
         </j:choose>
-
     </div>
 
     <a href="index.jsp">Return to home page</a>
+
+    <!-- New document modal -->
+    <div id="new-doc-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add a document to the library</p>
+                <button id="close-modal-btn" class="delete" ></button>
+            </header>
+            <section class="modal-card-body">
+                <form id="new-document-form">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input class="input" type="text" name="title" placeholder="Enter a title">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Type of document</label>
+                        <div class="control">
+                            <div class="select">
+                                <select name="type">
+                                    <option value="1">Book</option>
+                                    <option value="2">CD</option>
+                                    <option value="3">DVD</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="optional-field" class="field">
+                        <label class="label">Author</label>
+                        <div class="control">
+                            <input class="input" type="text" name="" placeholder="Enter an author">
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button id ="new-doc-save-btn" class="button is-success">Save </button>
+                <button class="button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+<%--    <script defer src="<j:url value="/resources/js/catalog.js"/>"></script>--%>
+    <script>
+        const newDocButton = document.querySelector("#new-doc-btn");
+        const closeModal = document.querySelector("#close-modal-btn");
+        const modal = document.querySelector(".modal");
+        const typeSelect = document.querySelector(".select>select");
+
+        newDocButton.addEventListener('click', () => {
+            const modalContainer = document.querySelector("#new-doc-modal");
+            modalContainer.classList.add("is-active");
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove("is-active");
+        });
+
+        typeSelect.addEventListener('change', e => {
+            const type = e.target.value;
+            const label = document.querySelector("#optional-field>label");
+            const optionalInput = document.querySelector("#optional-field .control>input");
+
+            switch (type) {
+                case "1":
+                    label.textContent = "Author";
+                    optionalInput.getAttributeNode("placeholder").textContent = "Enter an author";
+                    optionalInput.getAttributeNode("name").textContent = "author";
+                    break;
+                case "2":
+                    label.textContent = "Artist";
+                    optionalInput.getAttributeNode("placeholder").textContent = "Enter an artist";
+                    optionalInput.getAttributeNode("name").textContent = "artist";
+                    break;
+                case "3":
+                    label.textContent = "Producer";
+                    optionalInput.getAttributeNode("placeholder").textContent = "Enter a producer";
+                    optionalInput.getAttributeNode("name").textContent = "producer";
+                    break;
+            }
+        });
+
+        $("#new-doc-save-btn").click(() => {
+            $.ajax({
+                type: "POST",
+                url: "localhost:8080/document/new",
+                data: $("#new-document-form").serialize(),
+                success: () => {},
+                dataType: "json"
+            });
+        });
+    </script>
 </body>
 </html>
