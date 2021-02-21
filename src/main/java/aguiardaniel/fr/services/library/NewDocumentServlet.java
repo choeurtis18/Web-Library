@@ -16,45 +16,34 @@ public class NewDocumentServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object user = session.getAttribute("user");
 
-        System.out.println("FORM POSTTTTTTTTTTTTTTTTT");
-//        if(user == null)
-//            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
+        if(user == null)
+            this.getServletContext().getRequestDispatcher("/login").forward(request, response);
 
-//        String title = request.getParameter("title");
-//        int type = Integer.parseInt(request.getParameter("type"));
-//        Mediatek mediatek = Mediatek.getInstance();
-//
-//        Object[] args;
-//        switch (type) {
-//            case 1:
-//                args = new Object[]{title, request.getParameter("author")};
-//                break;
-//            case 2:
-//                args = new Object[]{title, request.getParameter("artist")};
-//                break;
-//            case 3:
-//                args = new Object[]{title, request.getParameter("producer")};
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + type);
-//        }
-//        try {
-//            mediatek.newDocument(type, args);
-//        }catch (NewDocException e) {
-//            e.printStackTrace();
-//        }
+        String title = request.getParameter("title");
+        int type = Integer.parseInt(request.getParameter("type"));
+        Mediatek mediatek = Mediatek.getInstance();
 
-    }
+        Object[] args;
+        switch (type) {
+            case 1:
+                args = new Object[]{title, request.getParameter("author")};
+                break;
+            case 2:
+                args = new Object[]{title, request.getParameter("artist")};
+                break;
+            case 3:
+                args = new Object[]{title, request.getParameter("producer")};
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        try {
+            mediatek.newDocument(type, args);
+        }catch (NewDocException e) {
+            e.printStackTrace();
+        }
 
-    @Override
-    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        setAccessControlHeaders(resp);
-        resp.setStatus(HttpServletResponse.SC_OK);
-    }
+        response.sendRedirect("/documents");
 
-    private void setAccessControlHeaders(HttpServletResponse resp) {
-        resp.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-        resp.setHeader("Access-Control-Allow-Methods", "POST");
     }
 }

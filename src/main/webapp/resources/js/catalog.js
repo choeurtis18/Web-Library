@@ -22,6 +22,7 @@ typeSelect.addEventListener('change', e => {
             label.textContent = "Author";
             optionalInput.getAttributeNode("placeholder").textContent = "Enter an author";
             optionalInput.getAttributeNode("name").textContent = "author";
+            console.log(optionalInput);
             break;
         case "2":
             label.textContent = "Artist";
@@ -37,11 +38,24 @@ typeSelect.addEventListener('change', e => {
 });
 
 $("#new-doc-save-btn").click(() => {
-    $.ajax({
-        type: "POST",
-        url: "localhost:8080/document/new",
-        data: $("#new-document-form").serialize(),
-        success: () => {},
-        dataType: "json"
-    });
+    const data = $("#new-document-form").serialize();
+
+    postData("/document/new", data)
+        .then(() => {
+            modal.classList.remove("is-active");
+        })
+        .catch(err => console.log(err));
 });
+
+const postData = async (url, data) => {
+    return await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        body: data // body data type must match "Content-Type" header
+    });
+};

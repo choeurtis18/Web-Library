@@ -89,66 +89,17 @@
                     <div id="optional-field" class="field">
                         <label class="label">Author</label>
                         <div class="control">
-                            <input class="input" type="text" name="" placeholder="Enter an author">
+                            <input class="input" type="text" name="author" placeholder="Enter an author">
                         </div>
                     </div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <button id ="new-doc-save-btn" class="button is-success">Save </button>
+                <button id ="new-doc-save-btn" class="button is-success">Save</button>
                 <button class="button">Cancel</button>
             </footer>
         </div>
     </div>
-<%--    <script defer src="<j:url value="/resources/js/catalog.js"/>"></script>--%>
-    <script>
-        const newDocButton = document.querySelector("#new-doc-btn");
-        const closeModal = document.querySelector("#close-modal-btn");
-        const modal = document.querySelector(".modal");
-        const typeSelect = document.querySelector(".select>select");
-
-        newDocButton.addEventListener('click', () => {
-            const modalContainer = document.querySelector("#new-doc-modal");
-            modalContainer.classList.add("is-active");
-        });
-
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove("is-active");
-        });
-
-        typeSelect.addEventListener('change', e => {
-            const type = e.target.value;
-            const label = document.querySelector("#optional-field>label");
-            const optionalInput = document.querySelector("#optional-field .control>input");
-
-            switch (type) {
-                case "1":
-                    label.textContent = "Author";
-                    optionalInput.getAttributeNode("placeholder").textContent = "Enter an author";
-                    optionalInput.getAttributeNode("name").textContent = "author";
-                    break;
-                case "2":
-                    label.textContent = "Artist";
-                    optionalInput.getAttributeNode("placeholder").textContent = "Enter an artist";
-                    optionalInput.getAttributeNode("name").textContent = "artist";
-                    break;
-                case "3":
-                    label.textContent = "Producer";
-                    optionalInput.getAttributeNode("placeholder").textContent = "Enter a producer";
-                    optionalInput.getAttributeNode("name").textContent = "producer";
-                    break;
-            }
-        });
-
-        $("#new-doc-save-btn").click(() => {
-            $.ajax({
-                type: "POST",
-                url: "localhost:8080/document/new",
-                data: $("#new-document-form").serialize(),
-                success: () => {},
-                dataType: "json"
-            });
-        });
-    </script>
+    <script defer src="<j:url value="/resources/js/catalog.js"/>"></script>
 </body>
 </html>

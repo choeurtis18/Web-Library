@@ -7,6 +7,7 @@ import aguiardaniel.fr.persistance.entity.document.DocumentFactory;
 
 import mediatek2021.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,9 +59,8 @@ public class MediatekData implements PersistentMediatek {
 		if(docType == null)
 			throw new NewDocException("This type doesn't exist");
 
-		List<Object> normalizedArgs = Arrays.asList(args);
+		List<Object> normalizedArgs = new ArrayList<>(Arrays.asList(args));
 		normalizedArgs.remove(0);
-
 		Document doc = DocumentFactory.newDocument(args[0].toString(), docType, true, normalizedArgs);
 
 		documentDAO.insert(doc);
