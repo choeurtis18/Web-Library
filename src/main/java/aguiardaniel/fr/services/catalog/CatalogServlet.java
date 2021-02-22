@@ -23,6 +23,7 @@ public class CatalogServlet extends HttpServlet {
 
         List<Document> documentList = Mediatek.getInstance().catalogue(1);
         request.setAttribute("documents", documentList);
+
         this.getServletContext().getRequestDispatcher("/catalog/catalog.jsp").forward(request, response);
 
     }

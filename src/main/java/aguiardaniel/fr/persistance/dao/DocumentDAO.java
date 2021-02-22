@@ -78,9 +78,10 @@ public class DocumentDAO extends DAO<Document> {
                 String type = set.getString("type");
 
                 ResultSet docSet = getDocumentById(documentID, type);
-                if(docSet == null || !docSet.next())
-                    return null;
 
+                if(docSet == null || !docSet.next()) {
+                    return null;
+                }
                 switch (type) {
                     case "book":
                         doc = DocumentFactory.newDocument(title, DocType.getTypeFromString(type),
@@ -102,6 +103,7 @@ public class DocumentDAO extends DAO<Document> {
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
+
         }
 
         return documents;
@@ -164,6 +166,7 @@ public class DocumentDAO extends DAO<Document> {
         try {
             PreparedStatement preparedStatement = super.getConnection().prepareStatement(queryDoc);
             preparedStatement.setInt(1, documentID);
+
             return preparedStatement.executeQuery();
         }catch (SQLException throwable){
             throwable.printStackTrace();
