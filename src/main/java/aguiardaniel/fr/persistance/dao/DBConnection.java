@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URI = "jdbc:mysql://localhost:3306/web-library?serverTimezone=GMT";
-    private static final String user = "root";
-    private static final String pwd = "root";
+    private static final String user = "danny";
+    private static final String pwd = "$Azertyuiop25$";
     private static final Connection connection;
 
     static {
