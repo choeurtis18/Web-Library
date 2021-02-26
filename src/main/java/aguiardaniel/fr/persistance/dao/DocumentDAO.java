@@ -3,7 +3,6 @@ package aguiardaniel.fr.persistance.dao;
 import aguiardaniel.fr.persistance.entity.document.*;
 
 import mediatek2021.Document;
-import mediatek2021.NewDocException;
 
 import java.sql.*;
 import java.util.ArrayList;
