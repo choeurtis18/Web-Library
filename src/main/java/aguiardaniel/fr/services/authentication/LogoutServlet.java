@@ -12,11 +12,10 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object user = session.getAttribute("user");
         if(user == null)
-            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/login").forward(request, response);
 
         session.invalidate();
-        response.sendRedirect("/login");
-
+        this.getServletContext().getRequestDispatcher("/login").forward(request, response);
     }
 
 }

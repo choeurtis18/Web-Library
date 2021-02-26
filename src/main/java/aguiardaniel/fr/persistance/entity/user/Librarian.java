@@ -6,6 +6,10 @@ public class Librarian extends User {
         super(username, email, password);
     }
 
+    public Librarian(int id, String username, String email, String password) {
+        super(id, username, email, password);
+    }
+
     public boolean isLibrarian() {
         return true;
     }

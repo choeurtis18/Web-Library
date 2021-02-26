@@ -6,8 +6,13 @@ import java.util.stream.Stream;
 public class CD extends GeneralDocument{
     private final String artist;
 
-    public CD(String title, String artist, DocumentState state) {
-        super(title, state);
+    public CD(String title, String description, String artist, DocumentState state) {
+        super(title, description, state);
+        this.artist = artist;
+    }
+
+    public CD(int id, String title, String description, String artist, DocumentState state) {
+        super(id, title, description, state);
         this.artist = artist;
     }
 

@@ -61,7 +61,7 @@ public class MediatekData implements PersistentMediatek {
 
 		List<Object> normalizedArgs = new ArrayList<>(Arrays.asList(args));
 		normalizedArgs.remove(0);
-		Document doc = DocumentFactory.newDocument(args[0].toString(), docType, true, normalizedArgs);
+		Document doc = DocumentFactory.newDocument(args[0].toString(), docType, true, normalizedArgs.toArray());
 
 		documentDAO.insert(doc);
 		// args[0] -> le titre
@@ -72,7 +72,7 @@ public class MediatekData implements PersistentMediatek {
 	// supprime un document - exception à définir
 	@Override
 	public void suppressDoc(int numDoc) throws SuppressException {
-		
+		this.documentDAO.delete(numDoc);
 	}
 
 }

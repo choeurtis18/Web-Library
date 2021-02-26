@@ -7,6 +7,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(name = "NewDocumentServlet", value = "/document/new")
 public class NewDocumentServlet extends HttpServlet {
@@ -20,25 +23,27 @@ public class NewDocumentServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/login").forward(request, response);
 
         String title = request.getParameter("title");
+        String description = request.getParameter("description");
         int type = Integer.parseInt(request.getParameter("type"));
         Mediatek mediatek = Mediatek.getInstance();
 
-        Object[] args;
+        List<Object> requestArguments = new ArrayList<>(Arrays.asList(title,description)) ;
         switch (type) {
             case 1:
-                args = new Object[]{title, request.getParameter("author")};
+                requestArguments.add(request.getParameter("author"));
                 break;
             case 2:
-                args = new Object[]{title, request.getParameter("artist")};
+                requestArguments.add(request.getParameter("artist"));
                 break;
             case 3:
-                args = new Object[]{title, request.getParameter("producer")};
+                requestArguments.add(request.getParameter("producer"));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
+
         try {
-            mediatek.newDocument(type, args);
+            mediatek.newDocument(type, requestArguments.toArray());
         }catch (NewDocException e) {
             e.printStackTrace();
         }

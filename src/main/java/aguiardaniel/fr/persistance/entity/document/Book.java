@@ -5,8 +5,13 @@ import java.util.stream.Stream;
 public class Book extends GeneralDocument{
     private final String author;
 
-    public Book(String title, String author, DocumentState state) {
-        super(title, state);
+    public Book(String title, String description, String author, DocumentState state) {
+        super(title, description, state);
+        this.author = author;
+    }
+
+    public Book(int id, String title, String description, String author, DocumentState state) {
+        super(id, title, description, state);
         this.author = author;
     }
 

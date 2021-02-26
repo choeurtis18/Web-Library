@@ -5,19 +5,24 @@ import mediatek2021.Utilisateur;
 import java.util.UUID;
 
 public abstract class User implements Utilisateur {
-    private final String id;
+    private int id;
     private final String username;
     private final String email;
     private final String password;
 
     public User(String username, String email, String password) {
-        this.id = UUID.randomUUID().toString();
+        this.id = 0;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public String getId() {
+    public User(int id, String username, String email, String password) {
+        this(username, email, password);
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -33,6 +38,6 @@ public abstract class User implements Utilisateur {
 
     @Override
     public Object[] data() {
-        return new Object[]{username, email};
+        return new Object[]{id, username, email};
     }
 }

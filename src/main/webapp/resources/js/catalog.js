@@ -1,16 +1,35 @@
+// button references
 const newDocButton = document.querySelector("#new-doc-btn");
-const closeModal = document.querySelector("#close-modal-btn");
-const modal = document.querySelector(".modal");
+const deleteDocButton = document.querySelectorAll("#delete-doc-btn")
+
+// close a modal with this reference
+const closeNewModal = document.querySelectorAll(".close-new-modal");
+const closeDeleteModal = document.querySelectorAll(".close-delete-modal");
+
+// modal references
+const newDocModal = document.querySelector("#new-doc-modal");
+const deleteDocModal = document.querySelector("#delete-doc-modal");
+
 const typeSelect = document.querySelector(".select>select");
 
+let docID = 0;
+
 newDocButton.addEventListener('click', () => {
-    const modalContainer = document.querySelector("#new-doc-modal");
-    modalContainer.classList.add("is-active");
+    newDocModal.classList.add("is-active");
 });
 
-closeModal.addEventListener('click', () => {
-    modal.classList.remove("is-active");
-});
+deleteDocButton.forEach(btn => btn.addEventListener('click', () => {
+    docID = btn.getAttribute("doc-id");
+    deleteDocModal.classList.add("is-active");
+}));
+
+closeNewModal.forEach(item => item.addEventListener('click', () => {
+    newDocModal.classList.remove("is-active");
+}));
+
+closeDeleteModal.forEach(item => item.addEventListener('click', () => {
+    deleteDocModal.classList.remove("is-active");
+}));
 
 typeSelect.addEventListener('change', e => {
     const type = e.target.value;
@@ -42,7 +61,19 @@ $("#new-doc-save-btn").click(() => {
 
     postData("/document/new", data)
         .then(() => {
-            modal.classList.remove("is-active");
+            newDocModal.classList.remove("is-active");
+            location.reload();
+        })
+        .catch(err => console.log(err));
+});
+
+$("#delete-doc-confirm-btn").click(() => {
+    const data = `id=${docID}`;
+
+    postData("/document/delete", data)
+        .then(() => {
+            deleteDocModal.classList.remove("is-active");
+            location.reload();
         })
         .catch(err => console.log(err));
 });

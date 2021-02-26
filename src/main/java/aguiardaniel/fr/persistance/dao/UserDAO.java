@@ -17,9 +17,7 @@ public class UserDAO extends DAO<Utilisateur>{
     }
 
     @Override
-    public void insert(Utilisateur entity) {
-
-    }
+    public void insert(Utilisateur entity) {}
 
     @Override
     public List<Utilisateur> getAll() {
@@ -42,15 +40,16 @@ public class UserDAO extends DAO<Utilisateur>{
             ResultSet set = preparedStatement.executeQuery();
 
             if (set.next()) {
+                int userID = set.getInt("id");
                 String username = set.getString("username");
                 String email = set.getString("email");
                 String pwd = set.getString("pwd");
                 boolean isLibrarian = set.getBoolean("isLibrarian");
 
                 if (isLibrarian)
-                    u = new Librarian(username, email, pwd);
+                    u = new Librarian(userID, username, email, pwd);
                 else
-                    u = new Subscriber(username, email, pwd);
+                    u = new Subscriber(userID, username, email, pwd);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -59,7 +58,5 @@ public class UserDAO extends DAO<Utilisateur>{
     }
 
     @Override
-    public void delete(int id) {
-
-    }
+    public void delete(int id) {}
 }
