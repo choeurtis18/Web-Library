@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JSP - Hello World</title>
+  <title>Web Library </title>
   <link rel="stylesheet" href="<j:url value="/resources/css/app.css"/>">
 </head>
 <body>
