@@ -18,8 +18,8 @@
     <div class="main-container">
         <div class="body-container">
             <header class="header">
-                <h1>Welcome to our catalog of documents</h1>
-                <button id="new-doc-btn" class="button">Add a document</button>
+                <h1>WELCOME TO OUR CATALOG OF DOCUMENTS</h1>
+                <button id="new-doc-btn" class="button">Add a new document</button>
             </header>
             <div class="container is-fluid my-6">
                 <div class="columns is-multiline">
@@ -45,10 +45,9 @@
                                                     </j:otherwise>
                                                 </j:choose>
                                                 <p>
-                                                    State :
                                                     <j:choose>
-                                                        <j:when test="${ document.data()[4] == 'Free'}">Is free</j:when>
-                                                        <j:when test="${ document.data()[4] == 'Borrowed'}">Is borrowed</j:when>
+                                                        <j:when test="${ document.data()[4] == 'Free'}"><span class="tag is-success">Free</span></j:when>
+                                                        <j:when test="${ document.data()[4] == 'Borrowed'}"><span class="tag is-danger">Borrowed</span></j:when>
                                                     </j:choose>
                                                 </p>
                                             </div>
