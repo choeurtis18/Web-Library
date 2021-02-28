@@ -17,10 +17,6 @@ public class NewDocumentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Object user = session.getAttribute("user");
-
-        if(user == null)
-            this.getServletContext().getRequestDispatcher("/login").forward(request, response);
 
         String title = request.getParameter("title");
         String description = request.getParameter("description");

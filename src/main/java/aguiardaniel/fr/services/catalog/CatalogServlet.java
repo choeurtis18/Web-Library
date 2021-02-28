@@ -18,9 +18,6 @@ public class CatalogServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object user = session.getAttribute("user");
 
-//        if(user == null)
-//            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
-
         List<Document> documentList = Mediatek.getInstance().catalogue(1);
         request.setAttribute("documents", documentList);
 
