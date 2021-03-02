@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URI = "jdbc:mysql://localhost:3306/web-library?serverTimezone=GMT";
-    private static final String user = "danny";
-    private static final String pwd = "root";
+    private static final String URI = "jdbc:mysql://d3y0lbg7abxmbuoi.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/bshr1lv7614vsnex";
+    private static final String user = "meanxpezg7634fio";
+    private static final String pwd = "hqfwp60l8f96in4o";
     private static final Connection connection;
 
     static {
