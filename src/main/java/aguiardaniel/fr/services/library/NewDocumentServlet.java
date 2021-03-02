@@ -3,7 +3,6 @@ package aguiardaniel.fr.services.library;
 import mediatek2021.Mediatek;
 import mediatek2021.NewDocException;
 
-import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
@@ -15,13 +14,10 @@ import java.util.List;
 public class NewDocumentServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         int type = Integer.parseInt(request.getParameter("type"));
-        Mediatek mediatek = Mediatek.getInstance();
 
         List<Object> requestArguments = new ArrayList<>(Arrays.asList(title,description)) ;
         switch (type) {
@@ -39,12 +35,11 @@ public class NewDocumentServlet extends HttpServlet {
         }
 
         try {
-            mediatek.newDocument(type, requestArguments.toArray());
+            Mediatek.getInstance().newDocument(type, requestArguments.toArray());
         }catch (NewDocException e) {
             e.printStackTrace();
         }
 
         response.sendRedirect("/documents");
-
     }
 }

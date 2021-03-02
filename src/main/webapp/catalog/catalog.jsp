@@ -15,11 +15,22 @@
     <link rel="stylesheet" href="<j:url value="/resources/css/app.css"/>">
 </head>
 <body>
+    <j:set var="isLibrarian" value="${sessionScope.user.data()[3]}"/>
     <div class="main-container">
         <div class="body-container">
             <header class="header">
-                <h1>WELCOME TO OUR CATALOG OF DOCUMENTS</h1>
-                <button id="new-doc-btn" class="button">Add a new document</button>
+                <div class="container is-fluid">
+                    <div class="is-flex">
+                        <h1 class="is-flex-grow-1">WELCOME TO OUR CATALOG OF DOCUMENTS</h1>
+                        <j:if test="${sessionScope.user != null}">
+                            <a class="button is-black" href="${pageContext.request.contextPath}/logout">Logout</a>
+                        </j:if>
+                    </div>
+                </div>
+
+                <j:if test="${isLibrarian == true}">
+                    <button id="new-doc-btn" class="button">Add a new document</button>
+                </j:if>
             </header>
             <div class="container is-fluid my-6">
                 <div class="columns is-multiline">
@@ -53,13 +64,15 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button
-                                                    id="delete-doc-btn"
-                                                    class="card-footer-item"
-                                                    doc-id="<j:out value="${document.data()[0]}"/>"
-                                            >
-                                                Delete
-                                            </button>
+                                            <j:if test="${isLibrarian == true}">
+                                                <button
+                                                        id="delete-doc-btn"
+                                                        class="card-footer-item"
+                                                        doc-id="<j:out value="${document.data()[0]}"/>"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </j:if>
                                         </div>
                                     </div>
                                 </div>

@@ -36,8 +36,12 @@ public abstract class User implements Utilisateur {
         return password;
     }
 
+    public boolean isLibrarian() {
+        return false;
+    }
+
     @Override
     public Object[] data() {
-        return new Object[]{id, username, email};
+        return new Object[]{id, username, email, isLibrarian()};
     }
 }

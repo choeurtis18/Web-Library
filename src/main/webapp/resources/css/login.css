@@ -1,11 +1,14 @@
+/*Page container*/
 #container{
-    width:400px;
-    margin:0 auto;
-    margin-top:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
+
 /* Bordered form */
 form {
-    width:100%;
+    width: 500px;
     padding: 30px;
     border: 1px solid #f1f1f1;
     background: #fff;

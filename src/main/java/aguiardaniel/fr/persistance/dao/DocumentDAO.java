@@ -6,7 +6,6 @@ import mediatek2021.Document;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DocumentDAO extends DAO<Document> {
@@ -67,7 +66,6 @@ public class DocumentDAO extends DAO<Document> {
     public List<Document> getAll() {
         String query = "SELECT * FROM document";
         List<Document> documents = new ArrayList<>();
-        Document doc;
 
         try(Statement stmt = super.getConnection().createStatement()) {
             ResultSet set = stmt.executeQuery(query);
@@ -81,30 +79,29 @@ public class DocumentDAO extends DAO<Document> {
 
                 ResultSet docSet = getDocumentById(documentID, type);
 
-                if(docSet == null || !docSet.next()) {
+                if(docSet == null || !docSet.next())
                     return null;
-                }
+
+                String args;
                 switch (type) {
                     case "book":
-                        doc = DocumentFactory.newDocument(documentID, title, DocType.getTypeFromString(type),
-                                state.equals("free"), description, docSet.getString("author"));
+                        args = docSet.getString("author");
                         break;
                     case "cd":
-                        doc = DocumentFactory.newDocument(documentID, title, DocType.getTypeFromString(type),
-                                state.equals("free"), description, docSet.getString("artist"));
+                        args = docSet.getString("artist");
                         break;
                     case "dvd":
-                        doc = DocumentFactory.newDocument(documentID, title, DocType.getTypeFromString(type),
-                                state.equals("free"), description, docSet.getString("producer"));
+                        args = docSet.getString("producer");
                         break;
                     default:
                         throw new SQLException("Document type invalid");
                 }
+                Document doc = DocumentFactory.newDocument(documentID, title, DocType.getTypeFromString(type),
+                        state.equals("free"), description, args);
                 documents.add(doc);
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-
         }
 
         return documents;

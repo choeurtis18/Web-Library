@@ -31,7 +31,6 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-
         if(login.isEmpty() || password.isEmpty()){
             request.setAttribute("error", "Please enter a login and password");
             this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
@@ -42,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 
         if(!pattern.matcher(login).matches() || Pattern.compile(pwdRegex).matcher(password).matches()){
             request.setAttribute("error", "Please enter valid credentials");
-            this.getServletContext().getRequestDispatcher("/login").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }
 
         Utilisateur u = Mediatek.getInstance().getUser(login, password);
@@ -50,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         // check if the user is a librarian
         if(u == null) {
             request.setAttribute("error", "Your login and password doesn't match");
-            this.getServletContext().getRequestDispatcher("/login").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }
         session.setAttribute("user", u);
 

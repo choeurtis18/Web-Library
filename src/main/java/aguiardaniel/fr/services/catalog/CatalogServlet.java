@@ -16,7 +16,6 @@ public class CatalogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Object user = session.getAttribute("user");
 
         List<Document> documentList = Mediatek.getInstance().catalogue(1);
         request.setAttribute("documents", documentList);

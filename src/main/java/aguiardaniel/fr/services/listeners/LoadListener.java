@@ -6,8 +6,7 @@ import javax.servlet.annotation.*;
 @WebListener
 public class LoadListener implements ServletContextListener {
 
-    public LoadListener() {
-    }
+    public LoadListener() {}
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -16,10 +15,5 @@ public class LoadListener implements ServletContextListener {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        /* This method is called when the servlet Context is undeployed or Application Server shuts down. */
     }
 }

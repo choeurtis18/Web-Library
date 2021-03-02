@@ -10,6 +10,7 @@ public class Librarian extends User {
         super(id, username, email, password);
     }
 
+    @Override
     public boolean isLibrarian() {
         return true;
     }
