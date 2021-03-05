@@ -58,5 +58,5 @@ public class UserDAO extends DAO<Utilisateur>{
     }
 
     @Override
-    public void delete(int id) {}
+    public boolean delete(int id) {return false;}
 }

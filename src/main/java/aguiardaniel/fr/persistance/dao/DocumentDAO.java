@@ -3,6 +3,7 @@ package aguiardaniel.fr.persistance.dao;
 import aguiardaniel.fr.persistance.entity.document.*;
 
 import mediatek2021.Document;
+import mediatek2021.SuppressException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -148,16 +149,18 @@ public class DocumentDAO extends DAO<Document> {
     }
 
     @Override
-    public void delete(int id) {
-        String deleteQuery = "DELETE FROM Document WHERE documentID = ?";
+    public boolean delete(int id) {
+        String deleteQuery = "DELETE FROM Document WHERE documentID = ? AND borrowID IS NULL ''";
 
         try(PreparedStatement preparedStatement = super.getConnection().prepareStatement(deleteQuery)) {
             preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+            int rowCount = preparedStatement.executeUpdate();
+            return rowCount == 0;
 
         }catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+        return false;
     }
 
     private ResultSet getDocumentById(int documentID, String table){

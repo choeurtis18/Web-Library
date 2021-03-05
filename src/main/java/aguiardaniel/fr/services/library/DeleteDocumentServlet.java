@@ -19,7 +19,8 @@ public class DeleteDocumentServlet extends HttpServlet {
         try {
             Mediatek.getInstance().suppressDoc(docID);
         } catch (SuppressException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            request.setAttribute("error", e.getMessage());
         }
 
         response.sendRedirect("/documents");

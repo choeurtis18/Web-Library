@@ -21,7 +21,7 @@ public class Book extends GeneralDocument{
 
     @Override
     public Object[] data() {
-        Object[] data = {author};
+        Object[] data = {author, Book.class};
         return Stream.of(super.data(), data).flatMap(Stream::of).toArray();
     }
 

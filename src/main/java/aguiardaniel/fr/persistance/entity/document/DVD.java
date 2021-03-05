@@ -21,7 +21,7 @@ public class DVD extends GeneralDocument{
 
     @Override
     public Object[] data() {
-        Object[] data = {producer};
+        Object[] data = {producer, DVD.class};
         return Stream.of(super.data(), data).flatMap(Stream::of).toArray();
     }
 

@@ -22,7 +22,7 @@ public class CD extends GeneralDocument{
 
     @Override
     public Object[] data() {
-        Object[] data = {artist};
+        Object[] data = {artist, CD.class};
         return Stream.of(super.data(), data).flatMap(Stream::of).toArray();
     }
 

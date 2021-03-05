@@ -16,7 +16,7 @@ public abstract class DAO<T> {
 
     public abstract T get(int id);
 
-    public abstract void delete(int id);
+    public abstract boolean delete(int id);
 
     public static java.sql.Date convertDate(java.util.Date uDate) {
         return new java.sql.Date(uDate.getTime());

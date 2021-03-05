@@ -5,11 +5,14 @@ import aguiardaniel.fr.persistance.dao.UserDAO;
 import aguiardaniel.fr.persistance.entity.document.DocType;
 import aguiardaniel.fr.persistance.entity.document.DocumentFactory;
 
+import aguiardaniel.fr.persistance.entity.document.GeneralDocument;
 import mediatek2021.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 // classe mono-instance : l'unique instance est connue de la bibliotheque
 // via une injection de dépendance dans son bloc static
@@ -33,7 +36,13 @@ public class MediatekData implements PersistentMediatek {
 	// renvoie la liste de tous les documents de la bibliothèque
 	@Override
 	public List<Document> catalogue(int type) {
-		return documentDAO.getAll();
+		DocType docType =  DocType.getTypeById(type);
+		if(docType == null)
+			return documentDAO.getAll();
+		return documentDAO.getAll().stream().filter(d -> {
+			Class<?> docClass = (Class<?>) d.data()[6];
+			return docClass.getSimpleName().equalsIgnoreCase(docType.toString());
+		}).collect(Collectors.toList());
 	}
 
 	// va récupérer le User dans la BD et le renvoie
@@ -61,7 +70,8 @@ public class MediatekData implements PersistentMediatek {
 
 		List<Object> normalizedArgs = new ArrayList<>(Arrays.asList(args));
 		normalizedArgs.remove(0);
-		Document doc = DocumentFactory.newDocument(args[0].toString(), docType, true, normalizedArgs.toArray());
+		Document doc = DocumentFactory.newDocument(args[0].toString(), docType,
+				true, normalizedArgs.toArray());
 
 		documentDAO.insert(doc);
 		// args[0] -> le titre
@@ -72,7 +82,9 @@ public class MediatekData implements PersistentMediatek {
 	// supprime un document - exception à définir
 	@Override
 	public void suppressDoc(int numDoc) throws SuppressException {
-		this.documentDAO.delete(numDoc);
+		boolean isDeleted = this.documentDAO.delete(numDoc);
+		if(!isDeleted)
+			throw new SuppressException("This document is borrowed. You can't delete this document");
 	}
 
 }
