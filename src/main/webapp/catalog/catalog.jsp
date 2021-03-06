@@ -13,6 +13,7 @@
     <title>Documents</title>
     <%@include file="../utils/include.jsp"%>
     <link rel="stylesheet" href="<j:url value="/resources/css/app.css"/>">
+    <script src="https://kit.fontawesome.com/9bdc77a9f2.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <j:set var="isLibrarian" value="${sessionScope.user.data()[3]}"/>
@@ -33,17 +34,22 @@
                 </j:if>
             </header>
             <div class="catalog-dropDown">
-                <div class="dropDown-title">
-                    <label class="label">Trier par type</label>
-                </div>
-                <div class="control">
-                    <div class="dropDown-select">
-                        <select name="type">
-                            <option id="dropDown-option-1" value="4">All documents</option>
-                            <option id="dropDown-option-2" value="3">DVD</option>
-                            <option id="dropDown-option-3" value="2">CD</option>
-                            <option id="dropDown-option-4" value="1">Book</option>
-                        </select>
+                <div class="dropdown">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span class="span-title">Filter by type</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            <a href="${pageContext.request.contextPath}/documents" class="dropdown-item">All documents</a>
+                            <a href="${pageContext.request.contextPath}/documents?type=1" class="dropdown-item">Book</a>
+                            <a href="${pageContext.request.contextPath}/documents?type=2" class="dropdown-item">CD</a>
+                            <a href="${pageContext.request.contextPath}/documents?type=3" class="dropdown-item">DVD</a>
+                        </div>
                     </div>
                 </div>
             </div>

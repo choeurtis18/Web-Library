@@ -11,15 +11,14 @@ const newDocModal = document.querySelector("#new-doc-modal");
 const deleteDocModal = document.querySelector("#delete-doc-modal");
 
 const typeSelect = document.querySelector(".select>select");
-const dropDownTypeSelect = document.querySelector(".dropDown-select>select");
-console.log(dropDownTypeSelect);
+
 let docID = 0;
 
-newDocButton.addEventListener('click', () => {
+newDocButton?.addEventListener('click', () => {
     newDocModal.classList.add("is-active");
 });
 
-deleteDocButton.forEach(btn => btn.addEventListener('click', () => {
+deleteDocButton?.forEach(btn => btn.addEventListener('click', () => {
     docID = btn.getAttribute("doc-id");
     deleteDocModal.classList.add("is-active");
 }));
@@ -79,44 +78,10 @@ $("#delete-doc-confirm-btn").click(() => {
         .catch(err => console.log(err));
 });
 
-$("#dropDown-option-2").click(() => {
-    const type = `type=${2}`;
-    console.log(type);
-    postData("/document", type)
-        .then(() => {
-            location.reload();
-        })
-        .catch(err => console.log(err));
+$(".dropdown-trigger>button").click(() => {
+    const dropdown = document.querySelector(".dropdown");
+    dropdown.classList.toggle("is-active");
 });
-
-
-
-dropDownTypeSelect.addEventListener('change', e => {
-    const type = e.target.value;
-    console.log(type);
-
-    switch (type) {
-        case "1":
-            postTypeDate(type);
-            break;
-        case "2":
-            postTypeDate(type);
-            break;
-        case "3":
-            postTypeDate(type);
-            break;
-    }
-});
-
-function postTypeDate(type){
-    const typeSend = `type=${type}`;
-    console.log(typeSend);
-    postData("/document", typeSend)
-        .then(() => {
-            location.reload();
-        })
-        .catch(err => console.log(err));
-}
 
 const postData = async (url, data) => {
     return await fetch(url, {
