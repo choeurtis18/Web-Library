@@ -17,9 +17,23 @@ public class CatalogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        List<Document> documentList = Mediatek.getInstance().catalogue(4);
-        request.setAttribute("documents", documentList);
 
+        String type = request.getParameter("type");
+
+        System.out.println(type);
+        if(type == null){
+            List<Document> documentList = Mediatek.getInstance().catalogue(4);
+            request.setAttribute("documents", documentList);
+        }else{
+            int docType = Integer.parseInt(type);
+            System.out.println(docType);
+
+            List<Document> documentList = Mediatek.getInstance().catalogue(docType);
+            request.setAttribute("documents", documentList);
+        }
+
+        //List<Document> documentList = Mediatek.getInstance().catalogue(4);
+        //request.setAttribute("documents", documentList);
         this.getServletContext().getRequestDispatcher("/catalog/catalog.jsp").forward(request, response);
 
     }

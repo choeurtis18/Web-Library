@@ -32,6 +32,21 @@
                     <button id="new-doc-btn" class="button">Add a new document</button>
                 </j:if>
             </header>
+            <div class="catalog-dropDown">
+                <div class="dropDown-title">
+                    <label class="label">Trier par type</label>
+                </div>
+                <div class="control">
+                    <div class="dropDown-select">
+                        <select name="type">
+                            <option id="dropDown-option-1" value="4">All documents</option>
+                            <option id="dropDown-option-2" value="3">DVD</option>
+                            <option id="dropDown-option-3" value="2">CD</option>
+                            <option id="dropDown-option-4" value="1">Book</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="container is-fluid my-6">
                 <div class="columns is-multiline">
                     <j:choose>

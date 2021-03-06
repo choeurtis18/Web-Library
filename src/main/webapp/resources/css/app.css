@@ -39,6 +39,11 @@ body{
     color: #000000;
 }
 
+/*dropDown style*/
+.catalog-dropDown{
+    padding: 2%;
+}
+
 /*Card Style*/
 .card{
     text-align: center;
