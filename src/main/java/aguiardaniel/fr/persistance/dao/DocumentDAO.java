@@ -150,7 +150,7 @@ public class DocumentDAO extends DAO<Document> {
 
     @Override
     public boolean delete(int id) {
-        String deleteQuery = "DELETE FROM Document WHERE documentID = ? AND borrowID IS NULL ''";
+        String deleteQuery = "DELETE FROM Document WHERE documentID = ? AND borrowID IS NULL";
 
         try(PreparedStatement preparedStatement = super.getConnection().prepareStatement(deleteQuery)) {
             preparedStatement.setInt(1, id);
