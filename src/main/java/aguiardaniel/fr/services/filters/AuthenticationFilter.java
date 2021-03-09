@@ -21,14 +21,16 @@ public class AuthenticationFilter implements Filter {
 
         String uri = req.getRequestURI();
         HttpSession session = req.getSession();
+
         Utilisateur u = (Utilisateur) session.getAttribute("user");
         List<String> protectedRoutes = Arrays.asList("/catalog", "/documents");
+        String loginRedirection = req.getContextPath() + "/login";
 
         if(protectedRoutes.stream().anyMatch(uri::startsWith) && u == null)
-            res.sendRedirect("/login");
+            res.sendRedirect(loginRedirection);
         else if(u != null || uri.equals("/") || uri.endsWith("/login") || uri.matches(".*"))
             chain.doFilter(request, response);
         else
-            res.sendRedirect("/login");
+            res.sendRedirect(loginRedirection);
     }
 }

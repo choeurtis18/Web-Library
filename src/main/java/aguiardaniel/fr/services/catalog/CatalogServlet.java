@@ -15,9 +15,6 @@ public class CatalogServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-
         String type = request.getParameter("type");
 
         System.out.println(type);
@@ -32,8 +29,6 @@ public class CatalogServlet extends HttpServlet {
             request.setAttribute("documents", documentList);
         }
 
-        //List<Document> documentList = Mediatek.getInstance().catalogue(4);
-        //request.setAttribute("documents", documentList);
         this.getServletContext().getRequestDispatcher("/catalog/catalog.jsp").forward(request, response);
 
     }

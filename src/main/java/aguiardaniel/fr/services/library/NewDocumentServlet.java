@@ -40,6 +40,6 @@ public class NewDocumentServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("/documents");
+        response.sendRedirect(request.getContextPath() + "/documents");
     }
 }

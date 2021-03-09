@@ -20,16 +20,16 @@ public class DocumentOperationFilter implements Filter {
 
         HttpSession session = req.getSession();
         Utilisateur user = (Utilisateur) session.getAttribute("user");
-
+        String loginRedirection = req.getContextPath() + "/login";
         boolean isAuthorized = false;
 
         if(user == null)
-            res.sendRedirect("/login");
+            res.sendRedirect(loginRedirection);
         else
             isAuthorized = (boolean) user.data()[3];
 
         if(!isAuthorized)
-            res.sendRedirect("/login");
+            res.sendRedirect(loginRedirection);
 
         chain.doFilter(request, response);
     }

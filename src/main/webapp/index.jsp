@@ -11,7 +11,7 @@
   <section id="index_section">
     <header class="header">
       <h1 class="header-title">WELCOME TO OUR LIBRARY</h1>
-      <a href="../authentication/login.jsp" ><button class="header-btn">Login</button></a>
+      <a href="${pageContext.request.contextPath}/login" ><button class="header-btn">Login</button></a>
     </header>
   </section>
 </body>

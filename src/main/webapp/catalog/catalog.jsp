@@ -104,7 +104,7 @@
             </div>
         </div>
         <footer class="footer-container">
-            <a href="../index.jsp">Return to home page</a>
+            <a href="${pageContext.request.contextPath}">Return to home page</a>
         </footer>
     </div>
 

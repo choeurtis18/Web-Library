@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         if(user != null)
             this.getServletContext().getRequestDispatcher("/documents").forward(request, response);
 
-        response.sendRedirect("/authentication/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/authentication/login.jsp");
     }
 
     @Override
@@ -46,13 +46,12 @@ public class LoginServlet extends HttpServlet {
 
         Utilisateur u = Mediatek.getInstance().getUser(login, password);
 
-        // check if the user is a librarian
         if(u == null) {
             request.setAttribute("error", "Your login and password doesn't match");
             this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }
         session.setAttribute("user", u);
 
-        response.sendRedirect("/documents");
+        response.sendRedirect(request.getContextPath() + "/documents");
     }
 }
