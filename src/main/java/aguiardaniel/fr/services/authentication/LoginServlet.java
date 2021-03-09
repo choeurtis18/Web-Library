@@ -4,9 +4,12 @@ package aguiardaniel.fr.services.authentication;
 import mediatek2021.Mediatek;
 import mediatek2021.Utilisateur;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
@@ -18,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object user = session.getAttribute("user");
 
-        if(user != null)
+        if (user != null)
             this.getServletContext().getRequestDispatcher("/documents").forward(request, response);
 
         response.sendRedirect(request.getContextPath() + "/authentication/login.jsp");
@@ -31,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        if(login.isEmpty() || password.isEmpty()){
+        if (login.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Please enter a login and password");
             this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }
@@ -39,14 +42,14 @@ public class LoginServlet extends HttpServlet {
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
         String pwdRegex = "^(?=.*[a-z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{8,20}$";
 
-        if(!pattern.matcher(login).matches() || Pattern.compile(pwdRegex).matcher(password).matches()){
+        if (!pattern.matcher(login).matches() || Pattern.compile(pwdRegex).matcher(password).matches()) {
             request.setAttribute("error", "Please enter valid credentials");
             this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }
 
         Utilisateur u = Mediatek.getInstance().getUser(login, password);
 
-        if(u == null) {
+        if (u == null) {
             request.setAttribute("error", "Your login and password doesn't match");
             this.getServletContext().getRequestDispatcher("/authentication/login.jsp").forward(request, response);
         }

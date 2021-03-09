@@ -11,5 +11,7 @@ public class Borrowed extends State {
     }
 
     @Override
-    public boolean isBorrowed() { return true; }
+    public boolean isBorrowed() {
+        return true;
+    }
 }

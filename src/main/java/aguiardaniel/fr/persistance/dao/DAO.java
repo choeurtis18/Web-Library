@@ -10,6 +10,10 @@ public abstract class DAO<T> {
         this.connection = connection;
     }
 
+    public static java.sql.Date convertDate(java.util.Date uDate) {
+        return new java.sql.Date(uDate.getTime());
+    }
+
     public abstract void insert(T entity);
 
     public abstract List<T> getAll();
@@ -17,10 +21,6 @@ public abstract class DAO<T> {
     public abstract T get(int id);
 
     public abstract boolean delete(int id);
-
-    public static java.sql.Date convertDate(java.util.Date uDate) {
-        return new java.sql.Date(uDate.getTime());
-    }
 
     public Connection getConnection() {
         return connection;

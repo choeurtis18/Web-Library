@@ -3,7 +3,7 @@ package aguiardaniel.fr.persistance.entity.document;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class CD extends GeneralDocument{
+public class CD extends GeneralDocument {
     private final String artist;
 
     public CD(String title, String description, String artist, DocumentState state) {

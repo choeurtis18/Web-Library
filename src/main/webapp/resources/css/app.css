@@ -4,12 +4,13 @@ Colors
 bleu : #323C50
 gris : #E9E9E9
 */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     min-height: 100vh;
     width: 100%;
 }
@@ -21,46 +22,52 @@ body{
     background: #323C50;
     color: white;
 }
+
 .header {
     color: white;
     font-size: 45px;
     font-weight: 900;
 }
-.header button{
+
+.header button {
     margin: 1%;
     background-color: #000000;
-    border:  2px solid #000000;
+    border: 2px solid #000000;
     color: #FFFFFF;
     border-radius: 12px;
 }
-.header button:hover{
+
+.header button:hover {
     background-color: #FFFFFF;
     border: 2px solid #FFFFFF;
     color: #000000;
 }
 
 /*dropDown style*/
-.catalog-dropDown{
+.catalog-dropDown {
     padding: 2%;
 }
 
 /*Card Style*/
-.card{
+.card {
     text-align: center;
 }
+
 .card .card-header {
     background-color: #E9E9E9;
 }
-.card .card-content .content p span{
+
+.card .card-content .content p span {
     text-align: center;
     font-size: 15px;
     padding: 2%;
 }
 
-.card-footer{
+.card-footer {
     padding-left: 30px;
     padding-right: 30px;
 }
+
 .card-footer button {
     margin: 1% auto;
     background-color: #000000;
@@ -68,6 +75,7 @@ body{
     border-radius: 12px;
     cursor: pointer;
 }
+
 .card-footer .card-footer-item:hover {
     background-color: #FFFFFF;
     color: #000000;
@@ -91,37 +99,32 @@ body{
     color: white;
     font-size: 25px;
 }
-.footer-container a{
+
+.footer-container a {
     text-decoration: none;
     color: white;
 }
 
 
-
-
 /*Index.jsp design*/
-#index_section{
+#index_section {
     width: 100%;
 }
+
 #index_section .header {
     padding: 0;
     height: 100vh;
-    background:
-            url(../images/library_backGround.jpg)    /* image */
-            center / cover /* position / size */
-            no-repeat                /* repeat */
-            fixed                    /* attachment */
-            padding-box              /* origin */
-            content-box              /* clip */
-            ;
+    background: url(../images/library_backGround.jpg) /* image */ center / cover /* position / size */ no-repeat /* repeat */ fixed /* attachment */ padding-box /* origin */ content-box /* clip */;
 
     text-align: center;
 
     margin: 0 auto;
 }
+
 .header .header-title {
     padding-top: 150px;
 }
+
 .header .header-btn {
     background-color: #000000;
     color: #FFFFFF;
@@ -131,6 +134,7 @@ body{
     padding: 0.5em 1em;
     margin-bottom: 150px;
 }
+
 .header .header-btn:hover {
     background-color: #FFFFFF;
     color: #000000;

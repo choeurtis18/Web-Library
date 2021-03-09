@@ -3,9 +3,9 @@ package aguiardaniel.fr.persistance.entity.document;
 import mediatek2021.Document;
 
 public abstract class GeneralDocument implements Document {
-    private int number;
     private final String title;
     private final String description;
+    private int number;
     private DocumentState state;
 
     public GeneralDocument(String title, String description, DocumentState state) {
@@ -19,6 +19,7 @@ public abstract class GeneralDocument implements Document {
         this(title, description, state);
         this.number = id;
     }
+
     public int getNumber() {
         return number;
     }
@@ -31,7 +32,9 @@ public abstract class GeneralDocument implements Document {
         return description;
     }
 
-    public DocumentState getState() { return state; }
+    public DocumentState getState() {
+        return state;
+    }
 
     @Override
     public Object[] data() {

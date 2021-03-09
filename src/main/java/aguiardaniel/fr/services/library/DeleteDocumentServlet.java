@@ -3,8 +3,10 @@ package aguiardaniel.fr.services.library;
 import mediatek2021.Mediatek;
 import mediatek2021.SuppressException;
 
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "DeleteDocumentServlet", value = "/document/delete")

@@ -2,7 +2,7 @@ package aguiardaniel.fr.persistance.entity.document;
 
 import java.util.stream.Stream;
 
-public class Book extends GeneralDocument{
+public class Book extends GeneralDocument {
     private final String author;
 
     public Book(String title, String description, String author, DocumentState state) {
@@ -29,6 +29,6 @@ public class Book extends GeneralDocument{
     public String toString() {
         return "Book{" +
                 "author='" + author + '\'' +
-                '}'+super.toString();
+                '}' + super.toString();
     }
 }

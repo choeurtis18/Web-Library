@@ -14,9 +14,10 @@ public class DBConnection {
         connection = getConnection();
     }
 
-    private DBConnection(){}
+    private DBConnection() {
+    }
 
-    public static Connection getInstance(){
+    public static Connection getInstance() {
         return connection;
     }
 

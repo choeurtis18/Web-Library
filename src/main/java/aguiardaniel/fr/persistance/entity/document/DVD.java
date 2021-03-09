@@ -2,7 +2,7 @@ package aguiardaniel.fr.persistance.entity.document;
 
 import java.util.stream.Stream;
 
-public class DVD extends GeneralDocument{
+public class DVD extends GeneralDocument {
     private final String producer;
 
     public DVD(String title, String description, String producer, DocumentState state) {

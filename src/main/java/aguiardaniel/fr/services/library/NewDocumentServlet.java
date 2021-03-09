@@ -3,8 +3,10 @@ package aguiardaniel.fr.services.library;
 import mediatek2021.Mediatek;
 import mediatek2021.NewDocException;
 
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +21,7 @@ public class NewDocumentServlet extends HttpServlet {
         String description = request.getParameter("description");
         int type = Integer.parseInt(request.getParameter("type"));
 
-        List<Object> requestArguments = new ArrayList<>(Arrays.asList(title,description)) ;
+        List<Object> requestArguments = new ArrayList<>(Arrays.asList(title, description));
         switch (type) {
             case 1:
                 requestArguments.add(request.getParameter("author"));
@@ -36,7 +38,7 @@ public class NewDocumentServlet extends HttpServlet {
 
         try {
             Mediatek.getInstance().newDocument(type, requestArguments.toArray());
-        }catch (NewDocException e) {
+        } catch (NewDocException e) {
             e.printStackTrace();
         }
 

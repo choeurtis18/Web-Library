@@ -10,14 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDAO extends DAO<Utilisateur>{
+public class UserDAO extends DAO<Utilisateur> {
 
     public UserDAO() {
         super(DBConnection.getInstance());
     }
 
     @Override
-    public void insert(Utilisateur entity) {}
+    public void insert(Utilisateur entity) {
+    }
 
     @Override
     public List<Utilisateur> getAll() {
@@ -58,5 +59,7 @@ public class UserDAO extends DAO<Utilisateur>{
     }
 
     @Override
-    public boolean delete(int id) {return false;}
+    public boolean delete(int id) {
+        return false;
+    }
 }

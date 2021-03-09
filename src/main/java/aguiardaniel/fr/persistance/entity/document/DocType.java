@@ -9,13 +9,9 @@ public enum DocType {
         this.typeID = id;
     }
 
-    public int getTypeID() {
-        return typeID;
-    }
-
     public static DocType getTypeById(int id) {
-        for (DocType docType : DocType.values()){
-            if(docType.getTypeID() == id)
+        for (DocType docType : DocType.values()) {
+            if (docType.getTypeID() == id)
                 return docType;
         }
         return null;
@@ -23,6 +19,10 @@ public enum DocType {
 
     public static DocType getTypeFromString(String type) {
         return DocType.valueOf(type.toUpperCase());
+    }
+
+    public int getTypeID() {
+        return typeID;
     }
 
 }

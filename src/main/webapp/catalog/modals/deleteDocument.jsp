@@ -17,7 +17,7 @@
             Do you want to delete this document ?
         </section>
         <footer class="modal-card-foot">
-            <button id ="delete-doc-confirm-btn" class="button is-success">Yes</button>
+            <button id="delete-doc-confirm-btn" class="button is-success">Yes</button>
             <button class="button close-delete-modal">No</button>
         </footer>
     </div>

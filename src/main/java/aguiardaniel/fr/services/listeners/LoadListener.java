@@ -1,12 +1,14 @@
 package aguiardaniel.fr.services.listeners;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class LoadListener implements ServletContextListener {
 
-    public LoadListener() {}
+    public LoadListener() {
+    }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

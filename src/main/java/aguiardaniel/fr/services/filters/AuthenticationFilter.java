@@ -3,7 +3,7 @@ package aguiardaniel.fr.services.filters;
 import mediatek2021.Utilisateur;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,9 +26,9 @@ public class AuthenticationFilter implements Filter {
         List<String> protectedRoutes = Arrays.asList("/catalog", "/documents");
         String loginRedirection = req.getContextPath() + "/login";
 
-        if(protectedRoutes.stream().anyMatch(uri::startsWith) && u == null)
+        if (protectedRoutes.stream().anyMatch(uri::contains) && u == null)
             res.sendRedirect(loginRedirection);
-        else if(u != null || uri.equals("/") || uri.endsWith("/login") || uri.matches(".*"))
+        else if (u != null || uri.equals("/") || uri.endsWith("/login") || uri.matches(".*"))
             chain.doFilter(request, response);
         else
             res.sendRedirect(loginRedirection);

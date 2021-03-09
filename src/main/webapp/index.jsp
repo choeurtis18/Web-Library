@@ -4,15 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Web Library </title>
-  <link rel="stylesheet" href="<j:url value="/resources/css/app.css"/>">
+    <title>Web Library </title>
+    <link rel="stylesheet" href="<j:url value="/resources/css/app.css"/>">
 </head>
 <body>
-  <section id="index_section">
+<section id="index_section">
     <header class="header">
-      <h1 class="header-title">WELCOME TO OUR LIBRARY</h1>
-      <a href="${pageContext.request.contextPath}/login" ><button class="header-btn">Login</button></a>
+        <h1 class="header-title">WELCOME TO OUR LIBRARY</h1>
+        <a href="${pageContext.request.contextPath}/login">
+            <button class="header-btn">Login</button>
+        </a>
     </header>
-  </section>
+</section>
 </body>
 </html>

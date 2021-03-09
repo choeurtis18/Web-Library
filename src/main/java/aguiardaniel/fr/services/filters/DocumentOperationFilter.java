@@ -3,7 +3,7 @@ package aguiardaniel.fr.services.filters;
 import mediatek2021.Utilisateur;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,12 +23,12 @@ public class DocumentOperationFilter implements Filter {
         String loginRedirection = req.getContextPath() + "/login";
         boolean isAuthorized = false;
 
-        if(user == null)
+        if (user == null)
             res.sendRedirect(loginRedirection);
         else
             isAuthorized = (boolean) user.data()[3];
 
-        if(!isAuthorized)
+        if (!isAuthorized)
             res.sendRedirect(loginRedirection);
 
         chain.doFilter(request, response);

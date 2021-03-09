@@ -14,6 +14,8 @@ const typeSelect = document.querySelector(".select>select");
 
 let docID = 0;
 
+const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+
 newDocButton?.addEventListener('click', () => {
     newDocModal.classList.add("is-active");
 });
@@ -59,7 +61,7 @@ typeSelect.addEventListener('change', e => {
 $("#new-doc-save-btn").click(() => {
     const data = $("#new-document-form").serialize();
 
-    postData("/document/new", data)
+    postData(`${contextPath}/document/new`, data)
         .then(() => {
             newDocModal.classList.remove("is-active");
             location.reload();
@@ -70,7 +72,7 @@ $("#new-doc-save-btn").click(() => {
 $("#delete-doc-confirm-btn").click(() => {
     const data = `id=${docID}`;
 
-    postData("/document/delete", data)
+    postData(`${contextPath}/document/delete`, data)
         .then(() => {
             deleteDocModal.classList.remove("is-active");
             location.reload();

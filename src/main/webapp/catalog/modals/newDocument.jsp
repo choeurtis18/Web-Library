@@ -52,7 +52,7 @@
             </form>
         </section>
         <footer class="modal-card-foot">
-            <button id ="new-doc-save-btn" class="button is-success">Save</button>
+            <button id="new-doc-save-btn" class="button is-success">Save</button>
             <button class="button close-new-modal">Cancel</button>
         </footer>
     </div>

@@ -1,11 +1,12 @@
 package aguiardaniel.fr.persistance.dao;
 
 import aguiardaniel.fr.persistance.entity.document.*;
-
 import mediatek2021.Document;
-import mediatek2021.SuppressException;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,10 @@ public class DocumentDAO extends DAO<Document> {
     }
 
     @Override
-    public void insert(Document entity){
+    public void insert(Document entity) {
         String insertionQuery = "INSERT INTO document(title, description, state, type, borrowID) VALUES (?, ?, ?, ?, null)";
 
-        try(PreparedStatement preparedStatement = super.getConnection()
+        try (PreparedStatement preparedStatement = super.getConnection()
                 .prepareStatement(insertionQuery, Statement.RETURN_GENERATED_KEYS)) {
             GeneralDocument gDoc = (GeneralDocument) entity;
             preparedStatement.setString(1, gDoc.getTitle());
@@ -28,33 +29,31 @@ public class DocumentDAO extends DAO<Document> {
 
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(!resultSet.next())
+            if (!resultSet.next())
                 throw new SQLException("No generated keys !");
             int documentID = (int) resultSet.getLong(1);
             PreparedStatement pst = null;
 
-            if(entity instanceof Book) {
+            if (entity instanceof Book) {
                 Book book = (Book) gDoc;
                 String insert = "INSERT INTO book(documentID, author) VALUES (?, ?)";
                 pst = super.getConnection().prepareStatement(insert);
                 pst.setInt(1, documentID);
                 pst.setString(2, book.getAuthor());
-            }
-            else if(entity instanceof CD) {
+            } else if (entity instanceof CD) {
                 CD cd = (CD) gDoc;
                 String insert = "INSERT INTO cd(documentID, artist) VALUES (?, ?)";
                 pst = super.getConnection().prepareStatement(insert);
                 pst.setInt(1, documentID);
                 pst.setString(2, cd.getArtist());
-            }
-            else if( entity instanceof DVD) {
+            } else if (entity instanceof DVD) {
                 DVD dvd = (DVD) gDoc;
                 String insert = "INSERT INTO dvd(documentID, producer) VALUES (?, ?)";
                 pst = super.getConnection().prepareStatement(insert);
                 pst.setInt(1, documentID);
                 pst.setString(2, dvd.getProducer());
             }
-            if(pst == null)
+            if (pst == null)
                 throw new SQLException("Inserting issue");
             pst.executeUpdate();
 
@@ -68,7 +67,7 @@ public class DocumentDAO extends DAO<Document> {
         String query = "SELECT * FROM document";
         List<Document> documents = new ArrayList<>();
 
-        try(Statement stmt = super.getConnection().createStatement()) {
+        try (Statement stmt = super.getConnection().createStatement()) {
             ResultSet set = stmt.executeQuery(query);
 
             while (set.next()) {
@@ -80,7 +79,7 @@ public class DocumentDAO extends DAO<Document> {
 
                 ResultSet docSet = getDocumentById(documentID, type);
 
-                if(docSet == null || !docSet.next())
+                if (docSet == null || !docSet.next())
                     return null;
 
                 String args;
@@ -152,25 +151,25 @@ public class DocumentDAO extends DAO<Document> {
     public boolean delete(int id) {
         String deleteQuery = "DELETE FROM Document WHERE documentID = ? AND borrowID IS NULL";
 
-        try(PreparedStatement preparedStatement = super.getConnection().prepareStatement(deleteQuery)) {
+        try (PreparedStatement preparedStatement = super.getConnection().prepareStatement(deleteQuery)) {
             preparedStatement.setInt(1, id);
             int rowCount = preparedStatement.executeUpdate();
             return rowCount == 0;
 
-        }catch (SQLException throwable) {
+        } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
         return false;
     }
 
-    private ResultSet getDocumentById(int documentID, String table){
+    private ResultSet getDocumentById(int documentID, String table) {
         String queryDoc = "SELECT * FROM " + table.toUpperCase() + " WHERE documentID = ?";
         try {
             PreparedStatement preparedStatement = super.getConnection().prepareStatement(queryDoc);
             preparedStatement.setInt(1, documentID);
 
             return preparedStatement.executeQuery();
-        }catch (SQLException throwable){
+        } catch (SQLException throwable) {
             throwable.printStackTrace();
             return null;
         }
